@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Application</title>
+</head>
+
+<body>
+  <h1>Application</h1>
+
+  <form id="applyForm" action="<%- URL %>" method="post">
+    <fieldset>
+      <label for="name"><b>Name: </b></label>
+      <input type="text" name="name" id="name" />
+
+      <label for="email"><b>Email Address: </b></label>
+      <input type="email" name="email" id="email" />
+
+      <br /><br />
+
+      <label for="gpa"><b>GPA: </b></label>
+      <input type="number" step="any" name="gpa" id="gpa" min="0" max="4" />
+
+      <br /><br />
+
+      <label for="info"><b>Background Information: </b></label>
+      <br />
+      <textarea name="info" id="info" cols="70" rows="5"></textarea>
+    </fieldset>
+
+    <br />
+
+    <input type="reset" value="Reset" />
+    <input type="submit" value="Submit Application" />
+  </form>
+
+  <script>
+    window.onsubmit = function submitDataConfirm() {
+      let answer = window.confirm(
+        "Are you sure you want to submit your application?\nYou will not be able to change your information once submitted."
+      );
+      return answer;
+    };
+  </script>
+
+  <hr />
+
+  <a href="/">HOME</a>
+</body>
+
+</html>
