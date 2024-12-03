@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Stock Portfolios</title>
-        <meta charset="utf-8">
-    </head>
 
-    <body>
-        <h1>Stock Portfolio Manager</h1>
-        <h2>Applicant</h2>
-        <ul>
-            <li>Insert a portfolio with stock tickers: <a href="/portfolio">Insert Portfolio</a></li>
-            <li>View your portfolio: <a href="/reviewApplication">Review Application</a></li>
-        </ul>
-        <h2>Admin</h2>
-        <ul>
-            <li>To select users based on gpa <a href="/adminGFA">Select by GPA</a></li>
-            <li>To remove all applications <a href="/adminRemove">Remove All Applications</a></li>
-        </ul>
-    </body>
+<head>
+    <title>Stock Portfolios</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1>Stock Portfolio Manager</h1>
+    <h2>Manager</h2>
+    <ul>
+        <li>Insert a portfolio with stock tickers: <a href="/insertPortfolio">Insert Portfolio</a></li>
+        <li>View your portfolio: <a href="/portfolios">View Portfolio</a></li>
+        <li><form id="removePortfolio" action="/removePortfolio" method="post">
+            <label for="namesRemove">Remove a portfolio: </label>
+            <select id="namesRemove" name="name">
+                <% items.forEach(item=> { %>
+                    <option value="<%= item.name %>">
+                        <%= item.name %>
+                    </option>
+                    <% }); %>
+            </select>
+            <input type="submit" value="Remove Portfolio" />
+        </form>
+        </li>
+    </ul>
+    <h2>Viewer</h2>
+    <ul>
+        <li>
+            <form id="getPrices" action="/getPrices" method="post">
+                <label for="names">To get stock prices for your portfolio, select a name: </label>
+                <select id="names" name="names">
+                    <% items.forEach(item=> { %>
+                        <option value="<%= item.name %>">
+                            <%= item.name %>
+                        </option>
+                        <% }); %>
+                </select>
+                <input type="submit" value="Get Prices" />
+            </form>
+        </li>
+    </ul>
+</body>
+
 </html>
