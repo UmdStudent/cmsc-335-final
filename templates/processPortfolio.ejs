@@ -4,17 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>Application Confirmation</title>
+  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
   <h1>Portfolio Submitted!</h1>
 
-  <b>Name: </b><%- name %><br />
-    <b>Tickers: </b><%- tickersList %><br />
-      <b>Prices: </b><%- table %><br />
-      <hr />
+  <div class="info-list">
+    <p>Name: <%- name %></p>
+    <p>Tickers: <%- tickersList %></p>
+    <p>Prices: </p>
+  </div>
+  <div class="container">
+    <%- table %>
+  </div>
 
-      <a href="/">HOME</a>
+  <a href="/" class="return-link">Return to home</a>
 </body>
 
 </html>

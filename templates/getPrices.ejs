@@ -5,16 +5,17 @@
 <head>
   <meta charset="UTF-8" />
   <title>Result</title>
+  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
   <h1>Prices for <%- name %>'s Stocks:</h1>
 
-  <%- table %>
+  <div class="container">
+    <%- table %>
+  </div>
 
-    <br />
-
-    <a href="/">HOME</a>
+  <a href="/" class="return-link">Return to home</a>
 </body>
 
 </html

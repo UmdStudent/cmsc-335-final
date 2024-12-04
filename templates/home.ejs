@@ -4,43 +4,59 @@
 <head>
     <title>Stock Portfolios</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
     <h1>Stock Portfolio Manager</h1>
-    <h2>Manager</h2>
-    <ul>
-        <li>Insert a portfolio with stock tickers: <a href="/insertPortfolio">Insert Portfolio</a></li>
-        <li>View your portfolio: <a href="/portfolios">View Portfolio</a></li>
-        <li><form id="removePortfolio" action="/removePortfolio" method="post">
-            <label for="namesRemove">Remove a portfolio: </label>
-            <select id="namesRemove" name="name">
-                <% items.forEach(item=> { %>
-                    <option value="<%= item.name %>">
-                        <%= item.name %>
-                    </option>
-                    <% }); %>
-            </select>
-            <input type="submit" value="Remove Portfolio" />
-        </form>
-        </li>
-    </ul>
-    <h2>Viewer</h2>
-    <ul>
-        <li>
-            <form id="getPrices" action="/getPrices" method="post">
-                <label for="names">To get stock prices for your portfolio, select a name: </label>
-                <select id="names" name="names">
-                    <% items.forEach(item=> { %>
-                        <option value="<%= item.name %>">
-                            <%= item.name %>
-                        </option>
-                        <% }); %>
-                </select>
-                <input type="submit" value="Get Prices" />
-            </form>
-        </li>
-    </ul>
+    <div class="container">
+      <a href="/insertPortfolio" class="list-button">
+        <div>
+          <h2>Create Portfolio</h2>
+          <p>Enter your stock tickers to watch</p>
+        </div>
+      </a>
+
+      <a href="/portfolios" class="list-button">
+        <div>
+          <h2>View Portfolios</h2>
+          <p>See what stocks other people are watching</p>
+        </div>
+      </a>
+
+      <form id="getPrices" action="/getPrices" method="post" class="list-form">
+        <div>
+          <h2>View portfolio</h2>
+          <p>See what stocks someone is watching and how they&apos;re doing</p>
+        </div>
+        <div class="input-field">
+          <select id="names" name="names">
+            <% items.forEach(item=> { %>
+              <option value="<%= item.name %>">
+                <%= item.name %>
+              </option>
+              <% }); %>
+          </select>
+          <input type="submit" value="Get Prices" />
+        </div>
+      </form>
+
+      <form id="removePortfolio" action="/removePortfolio" method="post" class="list-form">
+        <div>
+          <h2>Remove Portfolio</h2>
+          <p>Remove a portfolio from the list</p>
+        </div>
+        <div class="input-field">
+          <select id="namesRemove" name="name">
+            <% items.forEach(item=> { %>
+              <option value="<%= item.name %>">
+                <%= item.name %>
+              </option>
+              <% }); %>
+          </select>
+          <input type="submit" value="Remove Portfolio" />
+        </div>
+    </div>
 </body>
 
 </html>

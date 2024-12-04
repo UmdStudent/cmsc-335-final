@@ -4,28 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <title>Application</title>
+  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
-  <h1>Application</h1>
-
-  <form id="applyForm" action="<%- URL %>" method="post">
-    <fieldset>
+  <h1>Create Portfolio</h1>
+  
+  <div class="container">
+    <form id="applyForm" action="<%- URL %>" method="post" class="list-form">
       <label for="name"><b>Name: </b></label>
-      <input type="text" name="name" id="name" />
-
-      <br /><br />
+      <span class="input-field">
+        <input type="text" name="name" id="name" />
+      </span>
 
       <label for="tickers"><b>List of Tickers (Comma Separated): </b></label>
-      <br />
-      <textarea name="tickers" id="info" cols="70" rows="5"></textarea>
-    </fieldset>
+      <div class="input-field">
+        <textarea name="tickers" id="info" cols="70" rows="5" style="resize: vertical;"></textarea>
+        <input type="reset" value="Reset" />
+        <input type="submit" value="Add Portfolio" />
+      </div>
 
-    <br />
+    </form>
+  </div>
 
-    <input type="reset" value="Reset" />
-    <input type="submit" value="Add Portfolio" />
-  </form>
 
   <script>
     window.onsubmit = function submitDataConfirm() {
@@ -36,9 +37,7 @@
     };
   </script>
 
-  <hr />
-
-  <a href="/">HOME</a>
+  <a href="/" class="return-link">Return to home</a>
 </body>
 
 </html>

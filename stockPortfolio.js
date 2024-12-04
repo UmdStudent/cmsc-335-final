@@ -21,12 +21,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 
+app.use(express.static(__dirname + '/public'));
+
 app.listen(port, () => {
   console.log(
     `Stock portfolio manager app listening at http://localhost:${port}`
   );
 });
-const lhost = `http://localhost:${port}`;
 
 async function insertPortfolio(client, databaseAndCollection, portfolio) {
   const database = client.db(databaseAndCollection.db);
@@ -79,7 +80,8 @@ async function generatePortfoliosTable(portfolios) {
   let tableHTML = '<table border="1">';
   tableHTML += "<tr><th>Name</th><th>Tickers</th></tr>";
   portfolios.forEach((portfolio) => {
-    tableHTML += `<tr><th>${portfolio.name}</th><th>${portfolio.tickers}</th></tr>`;
+    const tickers = portfolio.tickers.join(", ");
+    tableHTML += `<tr><th>${portfolio.name}</th><th>${tickers}</th></tr>`;
   });
   tableHTML += "</table>";
   return tableHTML;
@@ -105,14 +107,14 @@ async function getStockInfoHTML(tickers) {
   if (!response.data.body || response.data.body.length === 0) {
     return output;
   } else {
-    output = "<table border='1'><tr><th>Symbol</th><th>Price</th></tr>";
+    output = "<table border='1'><tr><th>Ticker</th><th>Name</th><th>Price</th></tr>";
     output += response.data.body
-      .map((stock) => {
+      .map((stock, index) => {
         let price =
           stock.regularMarketPrice !== undefined
             ? stock.regularMarketPrice
             : "no price found";
-        return `<tr><td>${stock.shortName}</td><td>${price}</td></tr>`;
+        return `<tr><td>${tickers[index]}</td><td>${stock.shortName}</td><td>$${price}</td></tr>`;
       })
       .join("");
     output += "</table>";
@@ -147,7 +149,7 @@ app.get("/portfolios", async (req, res) => {
   }
 });
 app.get("/insertPortfolio", (req, res) => {
-  const dest = { URL: lhost + "/processPortfolio" };
+  const dest = { URL: "/processPortfolio" };
   res.render("insertPortfolio", dest);
 });
 app.post("/processPortfolio", async (req, res) => {
@@ -181,7 +183,7 @@ app.post("/removePortfolio", async (req, res) => {
     if (deletedCount === 0) {
       return res.status(404).json({ error: "Portfolio not found" });
     }
-    res.json({ message: "Portfolio removed" });
+    res.render("removedPortfolio", { name });
   } catch (e) {
     console.error(e);
   } finally {
