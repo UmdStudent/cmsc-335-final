@@ -61,7 +61,7 @@ async function getPortfolio(client, databaseAndCollection, name) {
 }
 
 async function listPortfolios(client, databaseAndCollection) {
-  const cursor = client
+  const cursor = await client
     .db(databaseAndCollection.db)
     .collection(databaseAndCollection.collection)
     .find({});
@@ -69,7 +69,7 @@ async function listPortfolios(client, databaseAndCollection) {
   return results;
 }
 async function getNames(client, databaseAndCollection) {
-  const cursor = client
+  const cursor = await client
     .db(databaseAndCollection.db)
     .collection(databaseAndCollection.collection)
     .find({}, { projection: { _id: 0, name: 1 } });
@@ -87,7 +87,6 @@ async function generatePortfoliosTable(portfolios) {
   return tableHTML;
 }
 async function getStockInfoHTML(tickers) {
-  console.log(tickers);
   const options = {
     method: "GET",
     url: "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes",
@@ -100,7 +99,6 @@ async function getStockInfoHTML(tickers) {
     },
   };
   const response = await axios.request(options);
-  // const url = `https://api.iextrading.com/1.0/stock/${ticker}/price`;
   let output = `<p>No stock prices found for: <br><em>${tickers.join(
     ", "
   )}</em></p>`;
